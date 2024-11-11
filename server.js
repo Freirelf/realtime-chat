@@ -5,7 +5,7 @@ const fs = require('fs');
 
 // Servidor HTTP para servir a página de chat
 const server = http.createServer((req, res) => {
-  fs.readFileSync(path.join(__dirname, 'index.html'), (err, data) => {
+  fs.readFileSync(path.join(__dirname, '/public/index.html'), (err, data) => {
     if (err) {
       res.writeHead(500)
       return res.end("Error loading index.html")
@@ -23,12 +23,12 @@ wss.on('connection', (ws) => {
     console.log("Received:", message)
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(message)
+        client.send(message.buffer)
       }
     })
   })
 })
 
-server.listen(3333, () => {
+server.listen(5500, () => {
   console.log('Server is listening on http://localhost:3333')
 })
